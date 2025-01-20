@@ -5,7 +5,7 @@
   <artifactId>money-calculator</artifactId>
   <version>1.0</version>
   <build>
-    <finalName>${project.artifactId}</finalName>
+    <finalName>${artifactId}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -17,21 +17,10 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <filters>
-                <filter>
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                  </excludes>
-                </filter>
-              </filters>
               <transformers>
                 <transformer>
-                  <mainClass>software.ulpgc.moneycalculator.Main</mainClass>
+                  <mainClass>${groupId}.${artifactId}.Main</mainClass>
                 </transformer>
-                <transformer />
               </transformers>
             </configuration>
           </execution>
@@ -39,6 +28,47 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>package-executable</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <id>run-jpackage</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>jpackage</executable>
+                  <arguments>
+                    <argument>--input</argument>
+                    <argument>target/</argument>
+                    <argument>--name</argument>
+                    <argument>${artifactId}</argument>
+                    <argument>--main-jar</argument>
+                    <argument>${artifactId}.jar</argument>
+                    <argument>--main-class</argument>
+                    <argument>${groupId}.${artifactId}.Main</argument>
+                    <argument>--type</argument>
+                    <argument>exe</argument>
+                    <argument>--win-dir-chooser</argument>
+                    <argument>--resource-dir</argument>
+                    <argument>src/main/resources</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <properties>
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.source>17</maven.compiler.source>
