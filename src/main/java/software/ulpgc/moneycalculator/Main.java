@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        String filePathRates = "D:\\Terminar\\money-calculator\\exchangeRates.tsv";
-        String filePathCurrencies = "D:\\Terminar\\money-calculator\\currencies.tsv";
+        String filePathRates = "exchangeRates.tsv";
+        String filePathCurrencies = "currencies.tsv";
         Locale.setDefault(Locale.US);
 
         Main mainApp = new Main();
