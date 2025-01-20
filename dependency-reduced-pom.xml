@@ -19,7 +19,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>${groupId}.${artifactId}.Main</mainClass>
+                  <mainClass>${artifactId}.${groupId}.Main</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -54,7 +54,7 @@
                     <argument>--main-jar</argument>
                     <argument>${artifactId}.jar</argument>
                     <argument>--main-class</argument>
-                    <argument>${groupId}.${artifactId}.Main</argument>
+                    <argument>${artifactId}.${groupId}.Main</argument>
                     <argument>--type</argument>
                     <argument>exe</argument>
                     <argument>--win-dir-chooser</argument>
